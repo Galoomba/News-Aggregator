@@ -15,11 +15,13 @@ class Reddit {
    * Fetch data from reddit api
    * @param {String} baseUrl
    * @param {String} constrainString
+   * @param {String} key
    * @return {Array}
    */
-  static async getArticles(baseUrl, constrainString) {
+  static async getArticles(baseUrl, constrainString, key) {
     const {data} = await container.axios.get(`${baseUrl}${constrainString}`);
     const articles = data.data.children;
+    container.redis.set(key, JSON.stringify({key: key, after: data.data.after, before: data.data.before}));
     // map articles
     return this.articleMapper(articles);
   }
@@ -47,21 +49,32 @@ class Reddit {
    * @param {String} page
    * @return {Array}
    */
-  static query(limit = 5, query, page) {
+  static async query(limit = 5, query, page) {
+    const key = `${page}/${limit}`;
+    const prefKey = `${page - 1}/${limit}`;
+
     // constract query string
     let constrainString = `&limit=${limit}&count=${limit}`;
     if (query) constrainString += `&q=${query}`;
-    /**
-     * TODO modify that query to cache user query to map the cursor based paggination to page and page size
-     */
-    if (!Number.isInteger(page)) {
-      if (page) constrainString += `&after=${page}`;
-      if (page) constrainString += `&before=${page}`;
+    // if pages > 1 try to retrive the cursor from the cache
+    if (page > 1) {
+      const cursor = await this.getCursorFromCache(prefKey);
+      if (cursor && (Number(cursor.key.split('/')[0]) < page)) constrainString += `&after=${cursor.after}`;
+      else if (cursor && (Number(cursor.key.split('/')[0]) > page)) constrainString += `&before=${cursor.before}`;
     }
     // config query base url
     const baseUrl = (query) ? container.config.reddit_search : container.config.reddit_base;
+    return this.getArticles(baseUrl, constrainString, key);
+  }
 
-    return this.getArticles(baseUrl, constrainString);
+  /**
+   * Retrive key from redis and parse it
+   * @param {String} key
+   */
+  static async getCursorFromCache(key) {
+    const result = JSON.parse(await container.redis.get(key));
+    if (result.key && (result.after || result.before)) return result;
+    else return undefined;
   }
 }
 
