@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "test": "nyc mocha",
+    "test": "nyc mocha --recursive",
     "lint": "eslint .",
     "lint-fix": "npm run lint -- --fix",
     "pretest": "npm run lint-fix",
