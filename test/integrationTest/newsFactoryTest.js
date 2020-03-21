@@ -7,7 +7,7 @@ const Model = container.newsfactory;
 
 describe('Integration Test newsfactory model ', () => {
   it('should return array of 10 with request schema', async () => {
-    const result = await Model.getArticles(10, null, 1);
+    const result = await Model.getArticles(undefined, null, undefined);
     expect(result).to.be.an('array').with.lengthOf(10);
     expect(result[0]).to.have.all.keys('headline', 'link', 'source', 'publishedAt');
   });
