@@ -18,7 +18,6 @@ class NewsApi {
    * @return {Array}
    */
   static async getArticles(baseUrl, constrainString) {
-    console.log(`${baseUrl}${constrainString}`);
     const {data} = await container.axios.get(`${baseUrl}${constrainString}`);
     const articles = data.articles;
     // map articles
@@ -46,10 +45,9 @@ class NewsApi {
    * @param {Integer} limit
    * @param {String} query
    * @param {String} page
-   * @param {String} pageSize
    * @return {Array}
    */
-  static query(limit = 5, query, page = 1, pageSize) {
+  static query(limit = 5, query, page = 1) {
     // constract query string
     let constrainString = `&apiKey=${container.config.newsApi_key}&pageSize=${limit}&page=${page}`;
     if (query) constrainString += `&q=${query}`;

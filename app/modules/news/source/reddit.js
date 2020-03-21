@@ -45,19 +45,19 @@ class Reddit {
    * @param {Integer} limit
    * @param {String} query
    * @param {String} page
-   * @param {String} pageSize
    * @return {Array}
    */
-  static query(limit = 5, query, page, pageSize) {
+  static query(limit = 5, query, page) {
     // constract query string
     let constrainString = `&limit=${limit}&count=${limit}`;
     if (query) constrainString += `&q=${query}`;
     /**
      * TODO modify that query to cache user query to map the cursor based paggination to page and page size
      */
-    if (page) constrainString += `&after=${page}`;
-    if (page) constrainString += `&before=${page}`;
-
+    if (!Number.isInteger(page)) {
+      if (page) constrainString += `&after=${page}`;
+      if (page) constrainString += `&before=${page}`;
+    }
     // config query base url
     const baseUrl = (query) ? container.config.reddit_search : container.config.reddit_base;
 
