@@ -12,7 +12,12 @@ services:
       ports:
         - 5001:3306
       restart: always
-
+    redis:
+      container_name: 'news_aggregator_redis'
+      image: redis:alpine
+      ports:
+        - 5002:6379
+      restart: always
     app:
       container_name: 'news_aggregator'
       build: .

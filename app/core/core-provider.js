@@ -22,6 +22,7 @@ module.exports = (container) => {
   container.constant('joi', require('@hapi/joi'));
   container.constant('jwt', require('jsonwebtoken'));
   container.constant('axios', require('axios'));
+  container.constant('redis', require('async-redis').createClient(`redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`));
 
   /**
    * Register object dependencies.
