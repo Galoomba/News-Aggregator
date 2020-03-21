@@ -32,9 +32,9 @@ class NewsApi {
   static articleMapper(articles) {
     return articles.map( (article) =>{
       return {
-        headline: article.title,
-        link: article.url,
-        publishedAt: container.moment(article.publishedAt).toISOString(),
+        headline: article.title || ' ',
+        link: article.url || ' ',
+        publishedAt: container.moment(article.publishedAt).toISOString() || ' ',
         source: 'newsapi',
       };
     });

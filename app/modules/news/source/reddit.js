@@ -32,9 +32,9 @@ class Reddit {
   static articleMapper(articles) {
     return articles.map( ({data}) =>{
       return {
-        headline: data.title,
-        link: data.url,
-        publishedAt: container.moment.unix(data.created).toISOString(),
+        headline: data.title || ' ',
+        link: data.url || ' ',
+        publishedAt: container.moment.unix(data.created).toISOString() || ' ',
         source: 'reddit',
       };
     });
