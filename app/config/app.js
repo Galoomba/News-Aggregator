@@ -25,6 +25,15 @@ module.exports = {
   auth_gateway: process.env.AUTH_GATEWAY || '',
 
   /**
+   * NEWS SOURCE
+   */
+  reddit_base: process.env.REDDIT_BASE || '',
+  newsApi_base: process.env.NEWSAPI_BASE || '',
+  reddit_search: process.env.REDDIT_SEARCH || '',
+  newsApi_search: process.env.NEWSAPI_SEARCH || '',
+  newsApi_key: process.env.NEWSAPI_KEY || '',
+
+  /**
    * Redis config.
    */
   redis_host: process.env.REDIS_HOST || '',
