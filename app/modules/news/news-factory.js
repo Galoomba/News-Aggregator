@@ -1,4 +1,4 @@
-
+const moment = container.moment;
 /**
  * NewsController Controller
  */
@@ -19,9 +19,10 @@ class NewsFactory {
    * @param {Integer} limit
    * @param {String} query
    * @param {String} page
+   * @param {String} sort
    * @return {Array}
    */
-  async getArticles(limit = 10, query, page = 1) {
+  async getArticles(limit = 10, query, page = 1, sort = 'desc') {
     const articlesList = [];
     const numberOfNewsFromSite = this.toFixed(limit / this.models.length, 0);
     /**
@@ -32,10 +33,10 @@ class NewsFactory {
     }
 
     // Make sure that the number of articles will match the user selection
-    if (limit > articlesList.length) articlesList.push(...await this.models[0].query(1, query, limit + 1));
+    if (limit > articlesList.length) articlesList.push(...await this.models[0].query(1, query, (limit * page) + 1));
 
     // sort articles list by publishAt date
-    return articlesList.sort((a, b) => container.moment(b.publishedAt) - container.moment(a.publishedAt));
+    return articlesList.sort((a, b) => (sort === 'desc') ? moment(b.publishedAt) - moment(a.publishedAt) : moment(a.publishedAt) - moment(b.publishedAt) );
   }
 
   /**
