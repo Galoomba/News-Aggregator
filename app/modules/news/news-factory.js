@@ -27,6 +27,9 @@ class NewsFactory {
     const numberOfNewsFromSite = this.toFixed(limit / this.models.length, 0);
     const cacheCompositeKey = `${limit}-${query}-${page}`;
 
+    // check page number
+    if (page < 1) container.errorHandlers.invalidInput();
+
     // check if result are cached
     const cached = await container.redis.get(cacheCompositeKey);
     if (cached) articlesList.push(...JSON.parse(cached));
