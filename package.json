@@ -7,6 +7,8 @@
     "start": "node server.js",
     "watch": "nodemon server.js",
     "test": "nyc mocha --recursive -t 30000",
+    "unit-test": "nyc mocha test/unitTest --recursive ",
+    "integration-test": "nyc mocha test/integrationTest --recursive -t 30000",
     "lint": "eslint .",
     "lint-fix": "npm run lint -- --fix",
     "pretest": "npm run lint-fix",
