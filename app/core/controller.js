@@ -40,7 +40,7 @@ class Controller {
               // eslint-disable-next-line no-constant-condition
               if ( ! this.constructor.skipPermissionCheck ||
                 ! this.constructor.skipPermissionCheck.includes(name) &&
-                argumentsList[0].user && false) {
+                argumentsList[0].user) {
                 await container.auth.can(argumentsList[0].user, name, this.modelName);
               }
 
