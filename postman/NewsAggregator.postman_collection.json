@@ -1,0 +1,380 @@
+{
+	"info": {
+		"_postman_id": "a9384212-bd36-418d-95b3-5e3a49e1581b",
+		"name": "NewsAggregator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05794b36-2947-40f9-b1df-608d890ceb47",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"auth_token\", ('Basic  '+jsonData.meta.token));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"Admin@NewsAggregator.com\",\n\t\"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/users/login",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "Get Articles ",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/news/?query=bitcoin&pageSize=10&page=1&sort=desc",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"news",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "bitcoin"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								}
+							]
+						},
+						"description": "Aggregate data from the news apis and compine them "
+					},
+					"response": [
+						{
+							"name": "Search for Articles ",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{base_url}}/api/news/?query=bitcoin",
+									"protocol": "http",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"news",
+										""
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "bitcoin",
+											"description": "Article Name"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2618"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a3a-OXcgDBORfCDsjdWfsBTHvXXXmfg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 21 Mar 2020 15:15:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"headline\": \"Former Coinbase exec is now down with OCC (the Office of the Comptroller of the Currency)\",\n            \"link\": \"http://techcrunch.com/2020/03/16/former-coinbase-exec-is-now-down-with-occ-the-office-of-the-comptroller-of-the-currency/\",\n            \"publishedAt\": \"2020-03-16T22:56:38.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Don't Download These Bogus Coronavirus 'Tracking' Android Apps\",\n            \"link\": \"https://lifehacker.com/dont-download-these-bogus-coronavirus-tracking-android-1842358987\",\n            \"publishedAt\": \"2020-03-16T19:00:00.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Bitcoin is also having a very, very bad day\",\n            \"link\": \"http://techcrunch.com/2020/03/12/bitcoin-is-also-having-a-very-very-bad-day/\",\n            \"publishedAt\": \"2020-03-12T12:34:45.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"India lifts ban on cryptocurrency trading\",\n            \"link\": \"http://techcrunch.com/2020/03/03/india-lifts-ban-on-cryptocurrency-trading/\",\n            \"publishedAt\": \"2020-03-04T06:19:08.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"DeFi aims to bridge the gap between blockchains and financial services\",\n            \"link\": \"http://techcrunch.com/2020/02/20/defi-aims-to-bridge-the-gap-between-blockchains-and-financial-services/\",\n            \"publishedAt\": \"2020-02-20T19:18:20.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"The largest dark web child pornography site in the world has been taken down after IRS followed Bitcoin transactions\",\n            \"link\": \"https://www.forbes.com/sites/kellyphillipserb/2019/10/16/irs-followed-bitcoin-transactions-resulting-in-takedown-of-the-largest-child-exploitation-site-on-the-web/\",\n            \"publishedAt\": \"2019-10-17T14:47:05.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Bitcoin investors may be out $190 million after the only guy with the password dies, firm says\",\n            \"link\": \"https://www.miamiherald.com/news/nation-world/world/article225501940.html\",\n            \"publishedAt\": \"2019-02-05T02:40:29.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"50 Cent forgot he had a stash of Bitcoin now worth $8m\",\n            \"link\": \"http://www.bbc.com/news/business-42820246\",\n            \"publishedAt\": \"2018-01-26T02:59:49.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Researchers find that one person likely drove Bitcoin from $150 to $1,000, in a new study published in the Journal of Monetary Economics. Unregulated cryptocurrency markets remain vulnerable to manipulation today.\",\n            \"link\": \"https://techcrunch.com/2018/01/15/researchers-finds-that-one-person-likely-drove-bitcoin-from-150-to-1000/\",\n            \"publishedAt\": \"2018-01-16T21:03:58.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"A boy asked his Bitcoin-investing dad...\",\n            \"link\": \"https://www.reddit.com/r/Jokes/comments/7ieoji/a_boy_asked_his_bitcoininvesting_dad/\",\n            \"publishedAt\": \"2017-12-08T20:33:53.000Z\",\n            \"source\": \"reddit\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Get Articles ",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{base_url}}/api/news",
+									"protocol": "http",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"news"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2775"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ad7-bgu404lPmOhM2D6p79Qil7XzO/I\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 21 Mar 2020 15:13:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"headline\": \"Country music legend Kenny Rogers dies at age of 81\",\n            \"link\": \"https://www.nbcnews.com/pop-culture/music/country-music-legend-kenny-rogers-dies-81-n1165531\",\n            \"publishedAt\": \"2020-03-21T14:49:50.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Bakan Varank açıkladı: Teknoparklarda iki ay kira alınmayacak - NTV\",\n            \"link\": \"https://www.ntv.com.tr/teknoloji/bakan-varank-acikladi-teknoparklarda-iki-ay-kira-alinmayacak,MkobHtCL2023db5WJX3_kw\",\n            \"publishedAt\": \"2020-03-21T14:46:23.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Son dakika: 46 ülkeye daha uçuşlar durdu - CNN Türk\",\n            \"link\": \"https://www.cnnturk.com/turkiye/son-dakika-46-ulkeye-daha-ucuslar-durdu\",\n            \"publishedAt\": \"2020-03-21T14:43:40.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"\\\"سامسونج\\\" تعلن عن هاتفها الجديد جالاكسي إيه 41 في اليابان - الإمارات نيوز\",\n            \"link\": \"https://emarat-news.ae/2020/03/21/105840/%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%d8%ac-%d8%aa%d8%b9%d9%84%d9%86-%d8%b9%d9%86-%d9%87%d8%a7%d8%aa%d9%81%d9%87%d8%a7-%d8%a7%d9%84%d8%ac%d8%af%d9%8a%d8%af-%d8%ac%d8%a7%d9%84%d8%a7%d9%83%d8%b3/\",\n            \"publishedAt\": \"2020-03-21T14:41:32.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Hadiah Mewah Rafathar Disunat dari Raffi Ahmad, Baim Wong Tertawa Ngakak: Samaan Kita Baru Sadar - TribunJakarta.com\",\n            \"link\": \"https://jakarta.tribunnews.com/2020/03/21/hadiah-mewah-rafathar-disunat-dari-raffi-ahmad-baim-wong-tertawa-ngakak-samaan-kita-baru-sadar\",\n            \"publishedAt\": \"2020-03-21T14:39:18.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"\\\"تواجدي للمقيمين\\\" المتواجدين خارج الدولة .. خدمة جديدة تصدرها \\\"الخارجية\\\" على موقعها الرسمي\\u200e - الإمارات اليوم\",\n            \"link\": \"https://www.emaratalyoum.com/local-section/other/2020-03-21-1.1323025\",\n            \"publishedAt\": \"2020-03-21T14:39:00.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Northern Va. teens cough on grocery store produce, upload videos on social media\",\n            \"link\": \"https://wjla.com/news/local/teens-cough-on-produce-social-media\",\n            \"publishedAt\": \"2020-03-21T07:44:03.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Goldman Sachs CEO David Solomon gets a 20% raise to $27.5 million\",\n            \"link\": \"https://www.cnbc.com/amp/2020/03/20/goldman-sachs-ceo-david-solomon-gets-a-20percent-raise-to-27point5-million-for-his-work-in-2019.html\",\n            \"publishedAt\": \"2020-03-21T05:00:25.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Dow tumbles 900 to end Wall Street's worst week since 2008\",\n            \"link\": \"https://www.cnbc.com/2020/03/19/stock-market-futures-open-to-close-news.html\",\n            \"publishedAt\": \"2020-03-21T04:02:37.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"New York joins California in locking down\",\n            \"link\": \"https://apnews.com/52f7fc77cce85060ad1cf73297b7cd45\",\n            \"publishedAt\": \"2020-03-21T00:58:05.000Z\",\n            \"source\": \"reddit\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Pagginate Articles ",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{base_url}}/api/news/?query=bitcoin&pageSize=10&page=1&sort=desc",
+									"protocol": "http",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"news",
+										""
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "bitcoin"
+										},
+										{
+											"key": "pageSize",
+											"value": "10",
+											"description": "Number of articles per page"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Page Number"
+										},
+										{
+											"key": "sort",
+											"value": "desc",
+											"description": "By Default it publishedAt desc, change to asec to revert it\n"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2618"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a3a-OXcgDBORfCDsjdWfsBTHvXXXmfg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 21 Mar 2020 16:27:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"headline\": \"Former Coinbase exec is now down with OCC (the Office of the Comptroller of the Currency)\",\n            \"link\": \"http://techcrunch.com/2020/03/16/former-coinbase-exec-is-now-down-with-occ-the-office-of-the-comptroller-of-the-currency/\",\n            \"publishedAt\": \"2020-03-16T22:56:38.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Don't Download These Bogus Coronavirus 'Tracking' Android Apps\",\n            \"link\": \"https://lifehacker.com/dont-download-these-bogus-coronavirus-tracking-android-1842358987\",\n            \"publishedAt\": \"2020-03-16T19:00:00.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"Bitcoin is also having a very, very bad day\",\n            \"link\": \"http://techcrunch.com/2020/03/12/bitcoin-is-also-having-a-very-very-bad-day/\",\n            \"publishedAt\": \"2020-03-12T12:34:45.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"India lifts ban on cryptocurrency trading\",\n            \"link\": \"http://techcrunch.com/2020/03/03/india-lifts-ban-on-cryptocurrency-trading/\",\n            \"publishedAt\": \"2020-03-04T06:19:08.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"DeFi aims to bridge the gap between blockchains and financial services\",\n            \"link\": \"http://techcrunch.com/2020/02/20/defi-aims-to-bridge-the-gap-between-blockchains-and-financial-services/\",\n            \"publishedAt\": \"2020-02-20T19:18:20.000Z\",\n            \"source\": \"newsapi\"\n        },\n        {\n            \"headline\": \"The largest dark web child pornography site in the world has been taken down after IRS followed Bitcoin transactions\",\n            \"link\": \"https://www.forbes.com/sites/kellyphillipserb/2019/10/16/irs-followed-bitcoin-transactions-resulting-in-takedown-of-the-largest-child-exploitation-site-on-the-web/\",\n            \"publishedAt\": \"2019-10-17T14:47:05.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Bitcoin investors may be out $190 million after the only guy with the password dies, firm says\",\n            \"link\": \"https://www.miamiherald.com/news/nation-world/world/article225501940.html\",\n            \"publishedAt\": \"2019-02-05T02:40:29.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"50 Cent forgot he had a stash of Bitcoin now worth $8m\",\n            \"link\": \"http://www.bbc.com/news/business-42820246\",\n            \"publishedAt\": \"2018-01-26T02:59:49.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"Researchers find that one person likely drove Bitcoin from $150 to $1,000, in a new study published in the Journal of Monetary Economics. Unregulated cryptocurrency markets remain vulnerable to manipulation today.\",\n            \"link\": \"https://techcrunch.com/2018/01/15/researchers-finds-that-one-person-likely-drove-bitcoin-from-150-to-1000/\",\n            \"publishedAt\": \"2018-01-16T21:03:58.000Z\",\n            \"source\": \"reddit\"\n        },\n        {\n            \"headline\": \"A boy asked his Bitcoin-investing dad...\",\n            \"link\": \"https://www.reddit.com/r/Jokes/comments/7ieoji/a_boy_asked_his_bitcoininvesting_dad/\",\n            \"publishedAt\": \"2017-12-08T20:33:53.000Z\",\n            \"source\": \"reddit\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
