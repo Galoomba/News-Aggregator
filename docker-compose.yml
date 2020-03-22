@@ -12,12 +12,19 @@ services:
       ports:
         - 5001:3306
       restart: always
+
     redis:
       container_name: 'news_aggregator_redis'
       image: redis:alpine
       ports:
         - 5002:6379
+      deploy:
+        resources:
+          limits:
+            cpus: '0.5'
+            memory: 100M
       restart: always
+
     app:
       container_name: 'news_aggregator'
       build: .
@@ -27,4 +34,9 @@ services:
         - "db"
       ports:
         - 5000:3000
+      deploy:
+        resources:
+          limits:
+            cpus: '0.5'
+            memory: 150M
       restart: always
