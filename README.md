@@ -1,17 +1,17 @@
 
 <h3 align="center">
 <b>News Aggregator</b></h3>
----
+
 News Aggregator is a simple app that aggregate the response of to different News Apis 
 "Reddit & NewsApi", It handle the pagination conflict between the two APIS since Reddit is cursor based and NewsApi is a Page/perPage pagination and cache request to reduce query time,<br> It's also has authentication module to make sure that the user is login and have the permissions to call the endpoint. <br>
 The app is build over a modified version of a node  <a href="https://github.com/SherifElfadaly/Node-Api-Skeleton">skeleton</a> to fit the task.
----
+
 ## 📝 Table of Contents
 
 - [Getting Started](#getting_started)
 - [Code Structure](#code_structure)
 - [Tests](#tests)
-
+- [API Docs](https://documenter.getpostman.com/view/8160912/SzS8sQV5?version=latest)
 
 
 ### Prerequisites
